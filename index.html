@@ -25,6 +25,22 @@
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/640px-HST-SM4.jpeg">
             <p class="muted">ID interno: <span id="idInterno"></span></p>
         </article>
+
+        <hr class="divisor">
+
+        <section class="admin-section">
+            <h2>Administrador de Noticias</h2>
+
+            <form id="formAdd" class="form-add">
+                <input type="text" id="inputTitulo" class="form-input" placeholder="Título de la noticia" required>
+                <input type="text" id="inputEtiqueta" class="form-input" placeholder="Etiqueta (Ej. UTSJR)" required>
+                <button type="submit" class="btn-submit">Añadir Noticia</button>
+            </form>
+
+            <ul id="listaNoticias" class="lista-noticias">
+                <!-- Las noticias dinámicas se insertarán aquí -->
+            </ul>
+        </section>
     </main>
 
     <script src="./app.js"></script>
