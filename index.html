@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOM Lab</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <main class="card">
+        <h1 id="titulo">Panel de Noticias</h1>
+
+        <section class="controls">
+            <button type="button" id="btnCambiarTitulo">Cambiar título</button>
+            <button type="button" id="btnToggleDestacado">Alternar destacado</button>
+            <button type="button" id="btnCambiarImagen">Cambiar imagen</button>
+        </section>
+
+        <article id="nota" class="nota" data-id="A-1001">
+            <h2 class="nota__heading">Nueva actualización del sitio</h2>
+            <p class="nota__texto">Esta nota debe poder actualizarse con JavaScript.</p>
+            <img id="imgNota" alt="Imagen de nota" width="320"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/HST-SM4.jpeg/640px-HST-SM4.jpeg">
+            <p class="muted">ID interno: <span id="idInterno"></span></p>
+        </article>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
