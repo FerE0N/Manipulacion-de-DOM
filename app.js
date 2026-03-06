@@ -38,35 +38,65 @@ btnCambiarImagen.addEventListener("click", () => {
   texto.textContent = "La imagen y el texto fueron actualizados desde el DOM.";
 });
 
-// --- PARTE B ---
+// --- PARTE B y C (Persistencia Simple) ---
+let noticiasData = JSON.parse(localStorage.getItem("noticiasData")) || [];
+
+function guardarEnLocalStorage() {
+  localStorage.setItem("noticiasData", JSON.stringify(noticiasData));
+}
+
+function renderizarNoticias() {
+  listaNoticias.innerHTML = "";
+
+  noticiasData.forEach((nota) => {
+    const li = document.createElement("li");
+    li.classList.add("nota-item");
+    if (nota.destacada) {
+      li.classList.add("destacada-item");
+    }
+
+    // Dataset para relacionar DOM con el Array Data
+    li.dataset.id = nota.id;
+
+    li.innerHTML = `
+      <div class="nota-item-content">
+        <h3 class="nota-item-titulo">${nota.titulo}</h3>
+        <span class="nota-item-tag">${nota.etiqueta}</span>
+      </div>
+      <div class="nota-item-actions">
+        <button type="button" class="btn-xs btn-star" aria-label="Destacar">⭐</button>
+        <button type="button" class="btn-xs btn-delete" aria-label="Eliminar">🗑️</button>
+      </div>
+    `;
+
+    // Mostrar en orden descendente
+    listaNoticias.appendChild(li);
+  });
+}
+
+// Cargar Inicial
+renderizarNoticias();
 
 // 6) Crear y agregar elementos dinámicos
 formAdd.addEventListener("submit", (e) => {
-  e.preventDefault(); // Evitar recarga
+  e.preventDefault();
 
   const nuevoTitulo = inputTitulo.value.trim();
   const nuevaEtiqueta = inputEtiqueta.value.trim();
 
   if (!nuevoTitulo || !nuevaEtiqueta) return;
 
-  // Crear elemento list item
-  const li = document.createElement("li");
-  li.classList.add("nota-item");
+  const nuevaNotaObj = {
+    id: Date.now().toString(),
+    titulo: nuevoTitulo,
+    etiqueta: nuevaEtiqueta,
+    destacada: false,
+  };
 
-  // Rellenar contenido con formato HTML interno
-  li.innerHTML = `
-    <div class="nota-item-content">
-      <h3 class="nota-item-titulo">${nuevoTitulo}</h3>
-      <span class="nota-item-tag">${nuevaEtiqueta}</span>
-    </div>
-    <div class="nota-item-actions">
-      <button type="button" class="btn-xs btn-star" aria-label="Destacar">⭐</button>
-      <button type="button" class="btn-xs btn-delete" aria-label="Eliminar">🗑️</button>
-    </div>
-  `;
-
-  // Insertar al inicio de la lista
-  listaNoticias.prepend(li);
+  // Agregar al inico de la Data persistente
+  noticiasData.unshift(nuevaNotaObj);
+  guardarEnLocalStorage();
+  renderizarNoticias();
 
   // Limpiar campos del formulario
   inputTitulo.value = "";
@@ -76,28 +106,32 @@ formAdd.addEventListener("submit", (e) => {
 
 // 7) Eliminar o interactuar con elementos creados (Delegación de eventos)
 listaNoticias.addEventListener("click", (e) => {
-  // Encontrar el botón clickeado
   const isDeleteBtn = e.target.closest(".btn-delete");
   const isStarBtn = e.target.closest(".btn-star");
 
-  // Si clickearon un botón de acciones, detener propagación
   if (isDeleteBtn || isStarBtn) {
     e.stopPropagation();
   }
 
+  const liPadre = e.target.closest(".nota-item");
+  if (!liPadre) return;
+
+  const idNotaStr = liPadre.dataset.id;
+
   // Eliminar elemento
   if (isDeleteBtn) {
-    const liPadre = isDeleteBtn.closest(".nota-item");
-    if (liPadre) {
-      liPadre.remove(); // Eliminación del DOM
-    }
+    noticiasData = noticiasData.filter((n) => n.id !== idNotaStr);
+    guardarEnLocalStorage();
+    renderizarNoticias();
   }
 
   // Alternar clase destacado
   if (isStarBtn) {
-    const liPadre = isStarBtn.closest(".nota-item");
-    if (liPadre) {
-      liPadre.classList.toggle("destacada-item");
+    const notaFound = noticiasData.find((n) => n.id === idNotaStr);
+    if (notaFound) {
+      notaFound.destacada = !notaFound.destacada;
+      guardarEnLocalStorage();
+      renderizarNoticias();
     }
   }
 });

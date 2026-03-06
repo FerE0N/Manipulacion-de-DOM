@@ -7,7 +7,7 @@ Este repositorio contiene la "Práctica: Manipulación del DOM con JavaScript". 
 * **Interacción y Actualización:** Controles para modificar el contenido de texto (título), alternar clases CSS para cambiar el diseño (modo destacado) y actualizar atributos como el src de las imágenes.
 * **Creación Dinámica de Elementos:** Un formulario interactivo que captura un título y una etiqueta (ej. UTSJR) para construir nuevos nodos HTML y agregarlos al inicio de la lista de noticias.
 * **Delegación de Eventos:** Implementación eficiente de event listeners en el contenedor principal para gestionar acciones de eliminación y resaltado sobre elementos generados dinámicamente.
-* **Reto Técnico Aplicado:** Implementación de *[Nota: Aquí puedes escribir si elegiste Búsqueda local, Persistencia con LocalStorage, o Seguridad XSS]* para extender la funcionalidad base.
+* **Reto Técnico Aplicado:** Implementación de **Persistencia con `localStorage`**. Se creó una lógica basada en estado que guarda arreglos JSON en la memoria del navegador para asegurar que las noticias creadas, eliminadas, o marcadas como destacadas no se pierdan al recargar la página.
 
 ## 🛠️ Tecnologías y Estructura
 El proyecto está construido dentro de la carpeta `dom-lab/` con la siguiente estructura base:
