@@ -1,35 +1,67 @@
 :root {
   font-family: system-ui, Arial;
+  /* Paleta mejorada para un aspecto premium */
+  --bg-color: #f6f7fb;
+  --card-bg: #ffffff;
+  --text-dark: #1f2937;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --highlight-color: #fef08a; /* Color amarillo para la nota destacada */
+  --highlight-border: #eab308;
 }
 
 body {
   margin: 0;
-  padding: 24px;
-  background: #f6f7fb;
+  padding: 40px 24px;
+  background: var(--bg-color);
+  color: var(--text-dark);
 }
 
 .card {
   max-width: 820px;
   margin: 0 auto;
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+#titulo {
+  margin-top: 0;
+  transition: color 0.3s ease;
 }
 
 .controls {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin: 12px 0;
+  margin: 20px 0 24px 0;
 }
 
 button {
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #ccd;
-  background: #f1f3f9;
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-dark);
+  font-weight: 500;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 .muted {
@@ -213,5 +245,9 @@ button {
 }
 
 .muted {
-  color: #667;
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
 }
